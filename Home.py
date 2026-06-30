@@ -131,7 +131,7 @@ st.markdown(
     f'<span style="font-size:0.85rem;color:{TEXT_MUT};">MLB {SEASON} · Statcast-powered</span>'
     f'</div>'
     f'<div style="font-size:0.90rem;color:{TEXT_SEC};margin-top:4px;">'
-    f'Pitching Intelligence Suite — decision support for one stakeholder</div>'
+    f'Pitching Intelligence Suite</div>'
     f'</div>',
     unsafe_allow_html=True,
 )

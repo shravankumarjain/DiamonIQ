@@ -3,8 +3,10 @@ Diamond IQ — Page 9: Documentation & User Manual
 Assessment criterion: 25% — Exceptionally clear, comprehensive, well-organised.
 Stakeholders can interpret outputs for informed decision-making.
 """
+
 import streamlit as st
 import sys, os
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from src.components import inject_css, page_header, NAVY, GOLD, SURFACE, MUTED
 from config.settings import SEASON, APP_VERSION
@@ -18,23 +20,25 @@ page_header(
 )
 
 # ── Tabs ───────────────────────────────────────────────────────────────────────
-tab_quick, tab_metrics, tab_method, tab_settings, tab_faq = st.tabs([
-    "Quick start",
-    "Metric glossary",
-    "Methodology",
-    "Settings guide",
-    "FAQ",
-])
+tab_quick, tab_metrics, tab_method, tab_settings, tab_faq = st.tabs(
+    [
+        "Quick start",
+        "Metric glossary",
+        "Methodology",
+        "Settings guide",
+        "FAQ",
+    ]
+)
 
 with tab_quick:
     st.markdown("""
     ## Diamond IQ — Quick Start
 
     **Diamond IQ** is a Statcast-powered pitching analytics platform designed for 
-    MLB **Pitching Coaches** and Performance Directors.
+    MLB **Pitching Coaches**.
 
     ### Who is this tool for?
-    A pitching coach or performance director who needs pitch-level intelligence 
+    A pitching coach who needs pitch-level intelligence 
     to make specific decisions **before and during a game.**
 
     ### 5-step workflow
@@ -84,89 +88,112 @@ with tab_metrics:
     )
 
     metrics = [
-        ("CSW%", "Called Strikes + Whiffs %",
-         "The percentage of pitches that result in either a called strike or a swing-and-miss, "
-         "divided by total pitches. CSW% is the single best pitch-level indicator of quality. "
-         "**MLB average ≈ 28%. Elite ≥ 30%.**",
-         "The coach should prioritise pitches with CSW% ≥ 30% in two-strike counts."),
-
-        ("Whiff%", "Swing-and-miss rate",
-         "Percentage of swings that result in a miss (swinging strike or foul tip). "
-         "**Formula: Swinging strikes ÷ Swings. MLB average ≈ 25%.** "
-         "Higher is better for the pitcher.",
-         "A Whiff% below 20% on a pitch means batters are making consistent contact — consider reducing usage."),
-
-        ("Run Value per 100 (RV/100)", "Runs saved/surrendered per 100 pitches",
-         "The delta_run_exp column from Statcast measures the change in run expectancy "
-         "for each pitch. Negative = pitcher saved runs vs what was expected in that game state. "
-         "**0.00 = MLB average. -1.0 = elite. +1.0 = below average.** "
-         "Used by every MLB front office for pitch evaluation.",
-         "Negative RV/100 = pitch is generating outs vs expectations. Lean on it. "
-         "Positive RV/100 = pitch is costing runs. Reduce usage."),
-
-        ("xwOBA Against", "Expected Weighted On-Base Average",
-         "The expected wOBA value based on exit velocity and launch angle of batted balls. "
-         "Removes luck/defense from the equation — reflects true contact quality allowed. "
-         "**MLB average ≈ 0.310. Elite ≤ 0.290.** Lower is better for the pitcher.",
-         "Rising xwOBA over the season = batters finding the pitch. "
-         "Flag for mechanical review."),
-
-        ("ACWR", "Acute:Chronic Workload Ratio",
-         "Ratio of short-term (acute) workload to long-term fitness base (chronic workload). "
-         "Developed by Tim Gabbett (2016). Uses pitch count as the external load proxy. "
-         "**Safe zone: 0.80–1.30. Danger zone: >1.50.** "
-         "Outside safe zone = elevated injury risk.",
-         "ACWR > 1.30 → limit pitch count and monitor closely. "
-         "ACWR < 0.80 → pitcher may be under-prepared, increase workload gradually."),
-
-        ("Velocity Decay (slope)", "Velocity drop per inning",
-         "Linear regression slope of average velocity vs inning number. "
-         "A statistically significant negative slope signals arm fatigue. "
-         "**Normal: 0 to -0.2 mph/inning. Flag: < -0.3 mph/inning (p < 0.10).**",
-         "Flag triggered → pull pitcher before further velocity loss to protect arm health."),
-
-        ("Release Point Drift", "Mechanical consistency proxy",
-         "Deviation (in inches) of the pitcher's release point in the last 5 starts "
-         "vs the season baseline. Used by MLB teams as a mechanical health indicator. "
-         "**Threshold: > 1 inch = flag.**",
-         "Drift detected → review high-speed video. May indicate fatigue or mechanical change."),
-
-        ("Stuff Grade (20-80)", "Scout-scale pitch quality score",
-         "Logistic regression model: pitch physical characteristics → predicted whiff probability "
-         "→ mapped to MLB 20-80 scout scale. "
-         "**50 = MLB average pitcher for that pitch type. 60 = above avg. 70 = plus. 80 = elite.**",
-         "Grades below 50 = pitch needs mechanical/conditioning work. "
-         "Grades above 60 = reliable weapon in high-leverage situations."),
-
-        ("Predictability Index", "Sequencing unpredictability score",
-         "Based on Shannon entropy of the Markov transition matrix row for each pitch. "
-         "**100% = always throws the same follow-up pitch (highly readable). "
-         "0% = perfectly random sequence.** "
-         "Target < 40% predictability on the primary pitch.",
-         "High predictability → mix follow-up pitches. Batters adjust after 2-3 at-bats."),
-
-        ("Zone%", "Strike zone rate",
-         "Percentage of pitches located within the MLB strike zone boundaries "
-         "(plate_x: ±0.83 ft, plate_z: 1.5–3.5 ft). "
-         "**Target: 45–52%.** Too high = hittable. Too low = walks.",
-         "Zone% below 40% in two-strike counts = costly walks. "
-         "Review command drills."),
-
-        ("Chase rate", "Out-of-zone swing rate",
-         "Percentage of pitches thrown outside the strike zone that batters swing at. "
-         "**MLB average ≈ 29%. Elite ≥ 34%.** Higher = pitcher is winning the at-bat.",
-         "Low chase rate → batters are not fooled. "
-         "Adjust pitch mix — use more breaking balls below zone to generate chases."),
+        (
+            "CSW%",
+            "Called Strikes + Whiffs %",
+            "The percentage of pitches that result in either a called strike or a swing-and-miss, "
+            "divided by total pitches. CSW% is the single best pitch-level indicator of quality. "
+            "**MLB average ≈ 28%. Elite ≥ 30%.**",
+            "The coach should prioritise pitches with CSW% ≥ 30% in two-strike counts.",
+        ),
+        (
+            "Whiff%",
+            "Swing-and-miss rate",
+            "Percentage of swings that result in a miss (swinging strike or foul tip). "
+            "**Formula: Swinging strikes ÷ Swings. MLB average ≈ 25%.** "
+            "Higher is better for the pitcher.",
+            "A Whiff% below 20% on a pitch means batters are making consistent contact — consider reducing usage.",
+        ),
+        (
+            "Run Value per 100 (RV/100)",
+            "Runs saved/surrendered per 100 pitches",
+            "The delta_run_exp column from Statcast measures the change in run expectancy "
+            "for each pitch. Negative = pitcher saved runs vs what was expected in that game state. "
+            "**0.00 = MLB average. -1.0 = elite. +1.0 = below average.** "
+            "Used by every MLB front office for pitch evaluation.",
+            "Negative RV/100 = pitch is generating outs vs expectations. Lean on it. "
+            "Positive RV/100 = pitch is costing runs. Reduce usage.",
+        ),
+        (
+            "xwOBA Against",
+            "Expected Weighted On-Base Average",
+            "The expected wOBA value based on exit velocity and launch angle of batted balls. "
+            "Removes luck/defense from the equation — reflects true contact quality allowed. "
+            "**MLB average ≈ 0.310. Elite ≤ 0.290.** Lower is better for the pitcher.",
+            "Rising xwOBA over the season = batters finding the pitch. "
+            "Flag for mechanical review.",
+        ),
+        (
+            "ACWR",
+            "Acute:Chronic Workload Ratio",
+            "Ratio of short-term (acute) workload to long-term fitness base (chronic workload). "
+            "Developed by Tim Gabbett (2016). Uses pitch count as the external load proxy. "
+            "**Safe zone: 0.80–1.30. Danger zone: >1.50.** "
+            "Outside safe zone = elevated injury risk.",
+            "ACWR > 1.30 → limit pitch count and monitor closely. "
+            "ACWR < 0.80 → pitcher may be under-prepared, increase workload gradually.",
+        ),
+        (
+            "Velocity Decay (slope)",
+            "Velocity drop per inning",
+            "Linear regression slope of average velocity vs inning number. "
+            "A statistically significant negative slope signals arm fatigue. "
+            "**Normal: 0 to -0.2 mph/inning. Flag: < -0.3 mph/inning (p < 0.10).**",
+            "Flag triggered → pull pitcher before further velocity loss to protect arm health.",
+        ),
+        (
+            "Release Point Drift",
+            "Mechanical consistency proxy",
+            "Deviation (in inches) of the pitcher's release point in the last 5 starts "
+            "vs the season baseline. Used by MLB teams as a mechanical health indicator. "
+            "**Threshold: > 1 inch = flag.**",
+            "Drift detected → review high-speed video. May indicate fatigue or mechanical change.",
+        ),
+        (
+            "Stuff Grade (20-80)",
+            "Scout-scale pitch quality score",
+            "Logistic regression model: pitch physical characteristics → predicted whiff probability "
+            "→ mapped to MLB 20-80 scout scale. "
+            "**50 = MLB average pitcher for that pitch type. 60 = above avg. 70 = plus. 80 = elite.**",
+            "Grades below 50 = pitch needs mechanical/conditioning work. "
+            "Grades above 60 = reliable weapon in high-leverage situations.",
+        ),
+        (
+            "Predictability Index",
+            "Sequencing unpredictability score",
+            "Based on Shannon entropy of the Markov transition matrix row for each pitch. "
+            "**100% = always throws the same follow-up pitch (highly readable). "
+            "0% = perfectly random sequence.** "
+            "Target < 40% predictability on the primary pitch.",
+            "High predictability → mix follow-up pitches. Batters adjust after 2-3 at-bats.",
+        ),
+        (
+            "Zone%",
+            "Strike zone rate",
+            "Percentage of pitches located within the MLB strike zone boundaries "
+            "(plate_x: ±0.83 ft, plate_z: 1.5–3.5 ft). "
+            "**Target: 45–52%.** Too high = hittable. Too low = walks.",
+            "Zone% below 40% in two-strike counts = costly walks. "
+            "Review command drills.",
+        ),
+        (
+            "Chase rate",
+            "Out-of-zone swing rate",
+            "Percentage of pitches thrown outside the strike zone that batters swing at. "
+            "**MLB average ≈ 29%. Elite ≥ 34%.** Higher = pitcher is winning the at-bat.",
+            "Low chase rate → batters are not fooled. "
+            "Adjust pitch mix — use more breaking balls below zone to generate chases.",
+        ),
     ]
 
     for name, full_name, definition, coaching_note in metrics:
         with st.expander(f"**{name}** — {full_name}"):
             st.markdown(f"**What it measures:** {definition}")
             st.markdown(
-                f"<div style='background:#f0f7ff;border-radius:6px;padding:10px;"
+                f"<div style='background:#143963;border-radius:6px;padding:10px;"
                 f"border-left:3px solid {NAVY};margin-top:8px;font-size:0.88rem;'>"
                 f"<b>Coaching note:</b> {coaching_note}</div>",
-                unsafe_allow_html=True
+                unsafe_allow_html=True,
             )
 
 with tab_method:
@@ -349,43 +376,51 @@ with tab_faq:
     st.markdown("## Frequently Asked Questions")
 
     faqs = [
-        ("Why does loading a new pitcher take so long?",
-         "The first time you select a pitcher, Diamond IQ downloads their full season's "
-         "pitch-by-pitch Statcast data directly from Baseball Savant. For a starter with "
-         "3,000+ pitches, this typically takes 30–90 seconds. After the first load, the data "
-         "is cached as a Parquet file on your disk — subsequent loads take under 1 second."),
-
-        ("Why is the pitcher roster missing ERA or IP data?",
-         "Diamond IQ sources roster data from the Baseball Savant expected-statistics "
-         "endpoint, which provides xwOBA and exit velocity metrics. ERA and IP come from a "
-         "secondary endpoint that may not always return data. The tool functions fully with "
-         "xwOBA and batters-faced as primary roster metrics."),
-
-        ("What does a negative Run Value per 100 mean?",
-         "Negative RV/100 means the pitch is saving runs relative to what was expected "
-         "in the same game situations. It is good for the pitcher. Positive RV/100 means "
-         "the pitch is costing runs. Think of it as plus/minus for individual pitches."),
-
-        ("Why are some ACWR values missing in the chart?",
-         "ACWR is calculated from pitch count per game date. If the pitcher did not "
-         "appear in consecutive games within the chronic window (28 days), the chronic "
-         "load estimate is based on fewer data points and may appear inconsistent."),
-
-        ("Can I use this for multiple pitchers at once?",
-         "Diamond IQ is designed for single-pitcher deep analysis. Select any pitcher "
-         "from the sidebar — their data persists across all 8 pages until you select someone "
-         "else. For roster-level comparison, use the Scorecard percentile table."),
-
-        ("Why does the Stuff Grade model grade differ from public Stuff+?",
-         "Diamond IQ's Stuff Grade is a simplified logistic regression model trained on "
-         "the pitcher's own data. Public Stuff+ systems (e.g. Baseball Savant's Stuff+) "
-         "are trained on all MLB pitchers against a common baseline. Our implementation "
-         "demonstrates the methodology accurately but grades are not directly comparable."),
-
-        ("What season is the data from?",
-         f"The platform is currently set to **MLB {SEASON} season** data. "
-         "To change the season, edit SEASON in config/settings.py and "
-         "re-run scripts/01_download_base_data.py."),
+        (
+            "Why does loading a new pitcher take so long?",
+            "The first time you select a pitcher, Diamond IQ downloads their full season's "
+            "pitch-by-pitch Statcast data directly from Baseball Savant. For a starter with "
+            "3,000+ pitches, this typically takes 30–90 seconds. After the first load, the data "
+            "is cached as a Parquet file on your disk — subsequent loads take under 1 second.",
+        ),
+        (
+            "Why is the pitcher roster missing ERA or IP data?",
+            "Diamond IQ sources roster data from the Baseball Savant expected-statistics "
+            "endpoint, which provides xwOBA and exit velocity metrics. ERA and IP come from a "
+            "secondary endpoint that may not always return data. The tool functions fully with "
+            "xwOBA and batters-faced as primary roster metrics.",
+        ),
+        (
+            "What does a negative Run Value per 100 mean?",
+            "Negative RV/100 means the pitch is saving runs relative to what was expected "
+            "in the same game situations. It is good for the pitcher. Positive RV/100 means "
+            "the pitch is costing runs. Think of it as plus/minus for individual pitches.",
+        ),
+        (
+            "Why are some ACWR values missing in the chart?",
+            "ACWR is calculated from pitch count per game date. If the pitcher did not "
+            "appear in consecutive games within the chronic window (28 days), the chronic "
+            "load estimate is based on fewer data points and may appear inconsistent.",
+        ),
+        (
+            "Can I use this for multiple pitchers at once?",
+            "Diamond IQ is designed for single-pitcher deep analysis. Select any pitcher "
+            "from the sidebar — their data persists across all 8 pages until you select someone "
+            "else. For roster-level comparison, use the Scorecard percentile table.",
+        ),
+        (
+            "Why does the Stuff Grade model grade differ from public Stuff+?",
+            "Diamond IQ's Stuff Grade is a simplified logistic regression model trained on "
+            "the pitcher's own data. Public Stuff+ systems (e.g. Baseball Savant's Stuff+) "
+            "are trained on all MLB pitchers against a common baseline. Our implementation "
+            "demonstrates the methodology accurately but grades are not directly comparable.",
+        ),
+        (
+            "What season is the data from?",
+            f"The platform is currently set to **MLB {SEASON} season** data. "
+            "To change the season, edit SEASON in config/settings.py and "
+            "re-run scripts/01_download_base_data.py.",
+        ),
     ]
 
     for q, a in faqs:
@@ -393,11 +428,14 @@ with tab_faq:
             st.markdown(a)
 
     st.markdown("---")
-    st.markdown(f"""
+    st.markdown(
+        f"""
     <div style="background:{SURFACE};border-radius:10px;padding:18px;
                 text-align:center;color:{MUTED};font-size:0.85rem;">
         Diamond IQ v{APP_VERSION} · MIS41420 Sports & Performance Analytics · 
         UCD Michael Smurfit Graduate Business School<br>
         Data: MLB Statcast via Baseball Savant · Season: {SEASON}
     </div>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
