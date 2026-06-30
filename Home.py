@@ -147,7 +147,7 @@ wwh_content = [
      "who decides what a pitcher throws tonight and whether he stays in the game."),
     ("WHAT", GOLD,
      "Turns Statcast data into a pre-game plan",
-     "Every pitch this season, run through 8 connected models — ranking, mechanics, "
+     "Every pitch this season, run through 8 connected models ranking, mechanics, "
      "location, effectiveness, sequencing, fatigue, pitch quality, and a prescriptive "
      "script for tonight's actual batting order."),
     ("HOW", GREEN,
