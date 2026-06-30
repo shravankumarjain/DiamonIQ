@@ -130,7 +130,7 @@ st.markdown(
     f'<h1 style="color:{GOLD};font-size:1.9rem;margin:0;font-weight:700;">⚾ Diamond IQ</h1>'
     f'<span style="font-size:0.85rem;color:{TEXT_MUT};">MLB {SEASON} · Statcast-powered</span>'
     f'</div>'
-    f'<div style="font-size:0.90rem;color:{TEXT_SEC};margin-top:4px;">'
+    f'<div style="font-size:1.90rem;color:{TEXT_SEC};margin-top:4px;">'
     f'Pitching Intelligence Suite</div>'
     f'</div>',
     unsafe_allow_html=True,
