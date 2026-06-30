@@ -1,0 +1,16 @@
+# Web framework
+streamlit>=1.32
+
+# Data
+pandas>=2.0
+numpy>=1.24
+pyarrow>=14.0
+pybaseball>=2.2.7
+requests>=2.31
+
+# Visualisation
+plotly>=5.18
+
+# Machine learning
+scikit-learn>=1.3
+scipy>=1.11

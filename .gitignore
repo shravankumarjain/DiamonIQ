@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Data cache — large parquet files should not go into git
+data/raw/*.parquet
+data/processed/*.parquet
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Keep the data folder structure in git even though contents are ignored
+!data/raw/.gitkeep
+!data/processed/.gitkeep
