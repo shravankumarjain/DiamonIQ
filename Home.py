@@ -128,7 +128,7 @@ st.markdown(
     f'<div style="border-bottom:1px solid {BORDER};padding-bottom:18px;margin-bottom:22px;">'
     f'<div style="display:flex;align-items:baseline;gap:12px;">'
     f'<h1 style="color:{GOLD};font-size:2.9rem;margin:0;font-weight:1100;">⚾ Diamond IQ</h1>'
-    f'<span style="font-size:0.85rem;color:{TEXT_MUT};">MLB {SEASON} · Statcast-powered</span>'
+    # f'<span style="font-size:0.85rem;color:{TEXT_MUT};">MLB {SEASON} · Statcast-powered</span>'
     f'</div>'
     f'<div style="font-size:1.90rem;color:{TEXT_SEC};margin-top:4px;">'
     f'Pitching Intelligence Suite</div>'
