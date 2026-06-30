@@ -2,7 +2,7 @@
 
 A Statcast-powered pitching analytics platform built for **MLB pitching coaches**. Diamond IQ turns pitch-by-pitch tracking data into pre-game and in-game decisions: who to start, how hard to push them, and exactly how to attack tonight's lineup.
 
-**Live demo:** _add your Streamlit Cloud URL here after deploying_
+**Live demo:** [](https://diamondiq.streamlit.app/)
 
 ---
 
